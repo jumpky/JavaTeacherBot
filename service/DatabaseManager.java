@@ -15,7 +15,6 @@ public class DatabaseManager {
 
     @Autowired
     private Environment env;
-
     private String dbUrl;
     private String dbUser;
     private String dbPassword;
@@ -60,7 +59,6 @@ public class DatabaseManager {
             }
         }
         catch (SQLException e) {
-            // Handle SQL exceptions and logging
             e.printStackTrace();
         }
         return algorithmNames;
@@ -78,7 +76,6 @@ public class DatabaseManager {
             statement.executeUpdate();
         }
         catch (SQLException e) {
-            // Handle SQL exceptions and logging
             e.printStackTrace();
         }
     }
@@ -97,9 +94,8 @@ public class DatabaseManager {
             }
         }
         catch (SQLException e) {
-            // Handle SQL exceptions and logging
             e.printStackTrace();
         }
-        return "java"; // Default language if not found in settings
+        return "java"; // язык по умолчанию
     }
 }

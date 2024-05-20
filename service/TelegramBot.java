@@ -27,7 +27,7 @@ public class TelegramBot extends TelegramLongPollingBot{
     static final String HELP_TEXT = "Этот бот создан для обучения вас java.\n\n" +
             " \"Вы можете выполнять команды из главного меню слева или набрав команду вручную\n\n" +
             "/start - Получите приветственное сообщение\n\n" +
-            "/algorithm - Информация о меню алгоритмов\n\n" +
+            "/algorithm - Меню алгоритмов\n\n" +
             "/help - Информация о том, как использовать этого бота\n\n" +
             "/settings - Установите свои параметры";
 
@@ -36,10 +36,10 @@ public class TelegramBot extends TelegramLongPollingBot{
         this.databaseManager = databaseManager;
 
         ArrayList<BotCommand> listOfCommands = new ArrayList<>();
-        listOfCommands.add(new BotCommand("/start", "get a welcome massage"));
-        listOfCommands.add(new BotCommand("/algorithm", "algorithms menu"));
-        listOfCommands.add(new BotCommand("/help", "info how to use this bot"));
-        listOfCommands.add(new BotCommand("/settings", "set your preferences"));
+        listOfCommands.add(new BotCommand("/start", "Получите приветственное сообщение"));
+        listOfCommands.add(new BotCommand("/algorithm", "Меню алгоритмов"));
+        listOfCommands.add(new BotCommand("/help", "Информация о том, как использовать этого бота"));
+        listOfCommands.add(new BotCommand("/settings", "Установите свои параметры"));
 
         try {
             this.execute(new SetMyCommands(listOfCommands, new BotCommandScopeDefault(), null));
@@ -77,7 +77,7 @@ public class TelegramBot extends TelegramLongPollingBot{
             if (callbackData.startsWith("set_language_")) {
                 String language = callbackData.split("_")[2];
                 databaseManager.updateUserLanguage(chatId, language);
-                sendMessage(chatId, "Your preferred language is now set to: " + language);
+                sendMessage(chatId, "Теперь ваш предпочтительный язык сменён на: " + language);
             }
             else {
                 String algorithmName = callbackData; // callbackData должен быть именем алгоритма
@@ -101,7 +101,7 @@ public class TelegramBot extends TelegramLongPollingBot{
     }
     private void startCommandReceived(long chatId, String name){
 
-        String answer = "Hi, " + name + ", nice to meet you!";
+        String answer = "Привет, " + name + ", приятно познакомиться с вами!";
         log.info("Replied to user: " + name);
 
         sendMessage(chatId,answer);
@@ -146,7 +146,7 @@ public class TelegramBot extends TelegramLongPollingBot{
     }
 
     private void sendInvalidAlgorithmMessage(long chatId) {
-        String message = "Invalid algorithm name. Please try again.";
+        String message = "Недопустимое название алгоритма. Пожалуйста, попробуйте снова.";
         sendMessage(chatId, message);
     }
 
@@ -154,9 +154,9 @@ public class TelegramBot extends TelegramLongPollingBot{
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
 
-        List<String> algorithmNames = databaseManager.getAlgorithmNames(); // Get names from DB
+        List<String> algorithmNames = databaseManager.getAlgorithmNames(); // Получать имена из базы данных
 
-        // Create buttons for each algorithm
+        // Создайте кнопки для каждого алгоритма
         for (String algorithmName : algorithmNames) {
             List<InlineKeyboardButton> row = new ArrayList<>();
             InlineKeyboardButton button = new InlineKeyboardButton();
@@ -208,7 +208,6 @@ public class TelegramBot extends TelegramLongPollingBot{
         pythonButton.setText("Python");
         pythonButton.setCallbackData("set_language_python");
         Row.add(pythonButton);
-
 
         inlineKeyboardMarkup.setKeyboard(rowList);
         SendMessage message = new SendMessage();

@@ -21,11 +21,6 @@ class Algorithm {
     }
 
     public String getDescription() { return description; }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-    public String getDescriptionCode() {
-        return descriptionCode;
-    }
+    public String getImageUrl() { return imageUrl; }
+    public String getDescriptionCode() { return descriptionCode; }
 }
